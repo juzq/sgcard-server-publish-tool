@@ -14,3 +14,4 @@ dist/
 
 #python缓存文件夹
 __pycache__/
+*.spec
