@@ -8,7 +8,6 @@ import os
 
 import wx
 from wx.lib.pubsub import pub
-
 from publish import Publish
 import ui
 
