@@ -5,12 +5,12 @@
 见苍龙智库文章[苍龙服务器发布工具gui版出炉啦](http://192.168.2.118/wordpress/2017/11/14/苍龙服务器发布工具gui版出炉啦/)
 
 # 代码结构
---
+···
  -
  |-design
  |   |-publish_tool.fbp 使用wxFormBuilder制作的界面布局
  |-env.py 环境参数
---
+···
  
 
 # 更新日志
