@@ -9,7 +9,10 @@
 + design
  - publish_tool.fbp 使用wxFormBuilder制作的界面布局
 + env.py 环境参数
-
++ publish.py 发布操作
++ sftp.py 上传下载及执行sh命令组件
++ tool_start.py 工具启动文件
++ ui.py 通过wxFormBuilder生成的wxPython界面，请勿直接修改
  
 
 # 更新日志
