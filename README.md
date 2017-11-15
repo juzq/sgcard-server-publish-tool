@@ -6,9 +6,11 @@
 
 # 代码结构
 --
+ -
  |-design
  |   |-publish_tool.fbp 使用wxFormBuilder制作的界面布局
  |-env.py 环境参数
+--
  
 
 # 更新日志
