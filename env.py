@@ -44,6 +44,14 @@ server_info = {
         'fight_ip': '210.73.210.94',
         'username': 'honor',
         'password': 'zK2p@dM$bh'
+    },
+    '内网': {
+        'release_en': 'inner',
+        'ip': '192.168.2.118',
+        'port': 22,
+        'fight_ip': '192.168.2.118',
+        'username': 'honor',
+        'password': 'zK2p@dM$bh'
     }
 }
 

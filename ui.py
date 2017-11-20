@@ -57,7 +57,7 @@ class PublishTool ( wx.Frame ):
 		self.m_staticText3.Wrap( -1 )
 		fgSizer5.Add( self.m_staticText3, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
-		choi_releaChoices = [ u"日文", u"韩文", u"台湾", u"东南亚", u"测试" ]
+		choi_releaChoices = [ u"日文", u"韩文", u"台湾", u"东南亚", u"内网" ]
 		self.choi_relea = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 180,-1 ), choi_releaChoices, 0 )
 		self.choi_relea.SetSelection( 0 )
 		fgSizer5.Add( self.choi_relea, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
