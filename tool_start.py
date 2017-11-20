@@ -4,7 +4,7 @@
 # Date : 2017/11/08
 # Description: 启动
 # ------------------------------------------------------------------------------
-import os
+import os, time
 
 import wx
 from wx.lib.pubsub import pub
@@ -26,7 +26,7 @@ class RunTool(ui.PublishTool):
         self.btn_start.Enable(enable)
 
     def append_text_result(self, msg):
-        self.text_result.AppendText(msg)
+        self.text_result.AppendText(time.strftime('%H:%M:%S') + ' ' + msg)
 
     def dir_changed( self, event ):
         path = event.GetPath()
