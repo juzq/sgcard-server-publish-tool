@@ -89,6 +89,11 @@ class Publish(Thread):
                     wx.CallAfter(pub.sendMessage, "append_text_result", msg=res)
             # 更新状态
             wx.CallAfter(pub.sendMessage, "update_text_status", msg="发布完成\n")
+            # 发布结果
+            if not cfg_err and not show_error:
+                wx.CallAfter(pub.sendMessage, "append_text_result", msg='发布成功\n')
+            else:
+                wx.CallAfter(pub.sendMessage, "append_text_result", msg='发布失败\n')
         except Exception as e:
             wx.CallAfter(pub.sendMessage, "update_text_status", msg="发布失败\n")
             wx.CallAfter(pub.sendMessage, "append_text_result", msg='发布失败，原因：\n' + str(e))
