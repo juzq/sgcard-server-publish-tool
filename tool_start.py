@@ -4,7 +4,7 @@
 # Date : 2017/11/08
 # Description: 启动
 # ------------------------------------------------------------------------------
-import os, time
+import os, time, webbrowser
 
 import wx
 from wx.lib.pubsub import pub
@@ -38,6 +38,13 @@ class RunTool(ui.PublishTool):
             if not os.path.isdir(f):
                 file_str += f + ' '
         self.text_files.SetValue(file_str)
+
+    def his_select( self, event ):
+        webbrowser.open('https://git.ppgame.com/lijixue/sgcard-server-publish-tool/blob/master/CHANGELOG.md', new=0,
+                        autoraise=True)
+
+    def abt_select( self, event ):
+        webbrowser.open('http://192.168.2.118/wordpress/2017/11/15/苍龙服务器发布工具gui版出炉啦', new=0, autoraise=True)
 
     def start(self, event):
         path = self.dir_picker.GetPath()

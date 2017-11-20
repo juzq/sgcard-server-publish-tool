@@ -30,7 +30,7 @@ class PublishTool ( wx.Frame ):
 		self.menu_bar.Append( self.menu_chio, u"选项(S)" ) 
 		
 		self.menu_abt = wx.Menu()
-		self.menu_item_abt = wx.MenuItem( self.menu_abt, wx.ID_ANY, u"关于(A)", wx.EmptyString, wx.ITEM_NORMAL )
+		self.menu_item_abt = wx.MenuItem( self.menu_abt, wx.ID_ANY, u"教程(A)", wx.EmptyString, wx.ITEM_NORMAL )
 		self.menu_abt.AppendItem( self.menu_item_abt )
 		
 		self.menu_bar.Append( self.menu_abt, u"帮助(H)" ) 
@@ -154,6 +154,8 @@ class PublishTool ( wx.Frame ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.Bind( wx.EVT_MENU, self.his_select, id = self.menu_item_hist.GetId() )
+		self.Bind( wx.EVT_MENU, self.abt_select, id = self.menu_item_abt.GetId() )
 		self.dir_picker.Bind( wx.EVT_DIRPICKER_CHANGED, self.dir_changed )
 		self.btn_start.Bind( wx.EVT_BUTTON, self.start )
 	
@@ -162,6 +164,12 @@ class PublishTool ( wx.Frame ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def his_select( self, event ):
+		event.Skip()
+	
+	def abt_select( self, event ):
+		event.Skip()
+	
 	def dir_changed( self, event ):
 		event.Skip()
 	
