@@ -4,9 +4,9 @@
 
 # 代码结构
 
-+ design 设计文件夹
++ design 设计
  - publish_tool.fbp 使用wxFormBuilder制作的界面布局
-+ scripts 相关脚本文件夹
++ scripts 相关脚本
  - build.txt 打包命令
  - stop_srv.sh 停服脚本
  - start_srv.sh 开服脚本
