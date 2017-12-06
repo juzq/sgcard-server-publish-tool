@@ -4,6 +4,9 @@
 # Date : 2017/11/08
 # Description: 环境设置
 # ------------------------------------------------------------------------------
+
+import subprocess
+
 server_info = {
     '测试': {
         'release_en': 'test',
@@ -56,4 +59,23 @@ server_info = {
 }
 
 
-root_path = '/home/honor/online/'
+remote_root_path = '/home/honor/online/'
+tool_path = '\\tool_build'
+build_path = tool_path + '\\build'
+source_path = '\\src'
+source_list_file = 'sources.list'
+copy_source_path = '\\com\\xd100\\lzll\\db\\sqlmap'
+package_path = tool_path + '\\bin.zip'
+
+
+def check_java(jdk_path):
+    if jdk_path is None:
+        p = subprocess.Popen('java -version', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    else:
+        p = subprocess.Popen('"' + jdk_path + '\\bin\\java" -version', shell=True, stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
+    line = str(p.stdout.readline())
+    if 'version' in line:
+        return line.replace('b\'java version ', '').replace('\\r\\n\'', '')
+    else:
+        return None

@@ -17,7 +17,7 @@ import wx.xrc
 class PublishTool ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙服务器发布工具", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙服务器发布工具V1.0", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -57,7 +57,7 @@ class PublishTool ( wx.Frame ):
 		self.m_staticText3.Wrap( -1 )
 		fgSizer5.Add( self.m_staticText3, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
-		choi_releaChoices = [ u"日文", u"韩文", u"台湾", u"东南亚", u"内网" ]
+		choi_releaChoices = [ u"日文", u"韩文", u"台湾", u"东南亚", u"内网", u"测试" ]
 		self.choi_relea = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 180,-1 ), choi_releaChoices, 0 )
 		self.choi_relea.SetSelection( 0 )
 		fgSizer5.Add( self.choi_relea, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
@@ -92,7 +92,7 @@ class PublishTool ( wx.Frame ):
 		self.m_staticText7.Wrap( -1 )
 		fgSizer37.Add( self.m_staticText7, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
-		self.dir_picker = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.Size( 450,-1 ), wx.DIRP_DEFAULT_STYLE|wx.DIRP_SMALL )
+		self.dir_picker = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.Size( 450,-1 ), wx.DIRP_CHANGE_DIR|wx.DIRP_DIR_MUST_EXIST|wx.DIRP_SMALL|wx.DIRP_USE_TEXTCTRL )
 		fgSizer37.Add( self.dir_picker, 0, wx.ALL, 5 )
 		
 		
@@ -107,13 +107,23 @@ class PublishTool ( wx.Frame ):
 		fgSizer39.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
 		fgSizer39.SetMinSize( wx.Size( 260,-1 ) ) 
+		fgSizer9 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer9.SetFlexibleDirection( wx.BOTH )
+		fgSizer9.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
 		self.m_staticText9 = wx.StaticText( self, wx.ID_ANY, u"状    态：", wx.Point( -1,-1 ), wx.DefaultSize, 0 )
 		self.m_staticText9.Wrap( -1 )
-		fgSizer39.Add( self.m_staticText9, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		fgSizer9.Add( self.m_staticText9, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		self.text_status = wx.StaticText( self, wx.ID_ANY, u"未开始", wx.Point( -1,-1 ), wx.DefaultSize, 0 )
 		self.text_status.Wrap( -1 )
-		fgSizer39.Add( self.text_status, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		fgSizer9.Add( self.text_status, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		
+		fgSizer39.Add( fgSizer9, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
+		self.btn_start = wx.Button( self, wx.ID_ANY, u"开始发布", wx.Point( -1,-1 ), wx.DefaultSize, 0 )
+		fgSizer39.Add( self.btn_start, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 		
 		
 		fgSizer38.Add( fgSizer39, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -122,8 +132,29 @@ class PublishTool ( wx.Frame ):
 		fgSizer41.SetFlexibleDirection( wx.BOTH )
 		fgSizer41.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.btn_start = wx.Button( self, wx.ID_ANY, u"开始发布", wx.Point( -1,-1 ), wx.DefaultSize, 0 )
-		fgSizer41.Add( self.btn_start, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		self.check_csv = wx.CheckBox( self, wx.ID_ANY, u"同时发布配置表", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.check_csv.SetValue(True) 
+		self.check_csv.Enable( False )
+		
+		fgSizer41.Add( self.check_csv, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		fgSizer8 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer8.SetFlexibleDirection( wx.BOTH )
+		fgSizer8.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		self.jdk_static_text = wx.StaticText( self, wx.ID_ANY, u"切换JDK路径：", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.jdk_static_text.Wrap( -1 )
+		self.jdk_static_text.Enable( False )
+		
+		fgSizer8.Add( self.jdk_static_text, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.jdk_picker = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DIR_MUST_EXIST|wx.DIRP_SMALL )
+		self.jdk_picker.Enable( False )
+		
+		fgSizer8.Add( self.jdk_picker, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
+		
+		fgSizer41.Add( fgSizer8, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		
 		fgSizer38.Add( fgSizer41, 1, wx.EXPAND, 5 )
@@ -158,6 +189,7 @@ class PublishTool ( wx.Frame ):
 		self.Bind( wx.EVT_MENU, self.abt_select, id = self.menu_item_abt.GetId() )
 		self.dir_picker.Bind( wx.EVT_DIRPICKER_CHANGED, self.dir_changed )
 		self.btn_start.Bind( wx.EVT_BUTTON, self.start )
+		self.jdk_picker.Bind( wx.EVT_DIRPICKER_CHANGED, self.jdk_changed )
 	
 	def __del__( self ):
 		pass
@@ -174,6 +206,9 @@ class PublishTool ( wx.Frame ):
 		event.Skip()
 	
 	def start( self, event ):
+		event.Skip()
+	
+	def jdk_changed( self, event ):
 		event.Skip()
 	
 
