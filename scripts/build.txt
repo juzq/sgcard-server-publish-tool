@@ -1,1 +1,1 @@
-pyinstaller -F tool_start.py --noconsole
+pyinstaller -F tool_start.py -w
