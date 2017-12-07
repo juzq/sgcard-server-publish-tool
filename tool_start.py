@@ -19,6 +19,7 @@ class RunTool(ui.PublishTool):
         pub.subscribe(self.update_btn_start, "update_btn_start")
         pub.subscribe(self.append_text_result, "append_text_result")
         self.is_programmer = False
+        self.init_by_ini()
 
     def update_text_status(self, msg):
         self.text_status.SetLabel(msg)
@@ -29,10 +30,13 @@ class RunTool(ui.PublishTool):
     def append_text_result(self, msg):
         self.text_result.AppendText(time.strftime('%H:%M:%S') + ' ' + msg)
 
-    def dir_changed( self, event):
+    def event_dir_changed( self, event):
         path = event.GetPath()
+        self.dir_changed(path)
+
+    def dir_changed(self, path):
         self.is_programmer = False
-        file_str = '您的身份已识别为：“策划汪”，以下是你要发布的文件，请逐个核对：\n'
+        file_str = '您的身份已识别为：“小小策划”\n以下是你要发布的文件，请逐个核对，核对完毕后请点击“开始发布”\n'
         if not check_dir_empty(path):
             return
         # 遍历本地目录
@@ -47,7 +51,11 @@ class RunTool(ui.PublishTool):
             self.jdk_static_text.Enable(True)
             self.jdk_picker.Enable(True)
             self.check_csv.Enable(True)
-            file_str = get_pro_msg(path, None)
+            jdk_path = self.jdk_picker.GetPath()
+            if jdk_path != '':
+                file_str = get_pro_msg(path, jdk_path)
+            else:
+                file_str = get_pro_msg(path, None)
         else:
             # 禁用JDK切换
             self.jdk_static_text.Enable(False)
@@ -56,9 +64,12 @@ class RunTool(ui.PublishTool):
 
         self.text_files.SetValue(file_str)
 
-    def jdk_changed(self, event):
+    def event_jdk_changed(self, event):
+        self.jdk_changed(event.GetPath())
+
+    def jdk_changed(self, path):
         self.text_files.Clear()
-        self.text_files.SetValue(get_pro_msg(self.dir_picker.GetPath(), event.GetPath()))
+        self.text_files.SetValue(get_pro_msg(self.dir_picker.GetPath(), path))
 
     def his_select( self, event ):
         webbrowser.open('https://git.ppgame.com/lijixue/sgcard-server-publish-tool/blob/master/CHANGELOG.md', new=0,
@@ -89,6 +100,52 @@ class RunTool(ui.PublishTool):
         Publish(srv_type, release_name, self.choi_srv.GetCount(), self.dir_picker.GetPath(), self.is_programmer,
                 self.jdk_picker.GetPath(), self.check_csv.IsChecked())
 
+    def tool_close(self, event):
+        if self.dir_picker.GetPath() != '':
+            if not os.path.exists(env.work_path):
+                os.mkdir(env.work_path)
+            file_obj = open(env.work_config_path, 'w')
+            try:
+                    file_obj.writelines(env.work_config_release + '=' + str(self.choi_relea.GetSelection()) + '\n')
+                    file_obj.writelines(env.work_config_srv_type + '=' + str(self.choi_srv.GetSelection()) + '\n')
+                    file_obj.writelines(env.work_config_dir_path + '=' + self.dir_picker.GetPath() + '\n')
+                    file_obj.writelines(env.work_config_jdk_path + '=' + self.jdk_picker.GetPath() + '\n')
+                    file_obj.writelines(env.work_config_upload_csv + '=' + str(self.check_csv.GetValue()) + '\n')
+            finally:
+                file_obj.close()
+                wx.Exit()
+        else:
+            wx.Exit()
+
+    def init_by_ini(self):
+        if os.path.exists(env.work_config_path):
+            file_obj = open(env.work_config_path, 'r')
+            try:
+                line = file_obj.readline()
+                while line:
+                    values = line.replace('\n', '').split('=')
+                    if values[0] == env.work_config_release:
+                        self.choi_relea.SetSelection(int(values[1]))
+                    elif values[0] == env.work_config_srv_type:
+                        self.choi_srv.SetSelection(int(values[1]))
+                    elif values[0] == env.work_config_dir_path:
+                        path = values[1]
+                        if path == '' or not os.path.exists(path):
+                            path = os.path.expanduser('~')
+                        self.dir_picker.SetPath(path)
+                        self.dir_changed(path)
+                    elif values[0] == env.work_config_jdk_path:
+                        path = values[1]
+                        if path != '' and os.path.exists(path):
+                            self.jdk_picker.SetPath(path)
+                            if self.is_programmer:
+                                self.jdk_changed(path)
+                    elif values[0] == env.work_config_upload_csv:
+                        self.check_csv.SetValue(values[1] == 'True')
+                    line = file_obj.readline()
+            finally:
+                file_obj.close()
+
 
 def check_dir_empty(path):
     # 判断本地参数是目录还是文件
@@ -106,10 +163,10 @@ def get_pro_msg(proj_path, jdk_path):
     jdk_ver = env.check_java(jdk_path)
     if jdk_ver is not None:
         msg += '您的JDK版本是：' + jdk_ver + '，请确认\n'
-        msg += '您选择的项目路径是：' + proj_path + '\n'
-        msg += '请确认该项目所有文件已保存，确认完毕请点击“开始发布”'
+        msg += '您选择的项目路径：' + proj_path + '\n'
+        msg += '请确认所有文件已保存，确认完毕请点击“开始发布”'
     else:
-        msg += '没有找到您的JDK，请指定JDK路径'
+        msg += '没有找到您的JDK，请重新选择JDK路径'
     return msg
 
 

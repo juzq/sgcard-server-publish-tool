@@ -17,7 +17,7 @@ import wx.xrc
 class PublishTool ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙服务器发布工具V1.0", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙服务器发布工具V1.1", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -133,20 +133,19 @@ class PublishTool ( wx.Frame ):
 		fgSizer41.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
 		self.check_csv = wx.CheckBox( self, wx.ID_ANY, u"同时发布配置表", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.check_csv.SetValue(True) 
 		self.check_csv.Enable( False )
 		
-		fgSizer41.Add( self.check_csv, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		fgSizer41.Add( self.check_csv, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
 		fgSizer8 = wx.FlexGridSizer( 0, 2, 0, 0 )
 		fgSizer8.SetFlexibleDirection( wx.BOTH )
 		fgSizer8.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.jdk_static_text = wx.StaticText( self, wx.ID_ANY, u"切换JDK路径：", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.jdk_static_text = wx.StaticText( self, wx.ID_ANY, u"| 切换JDK路径：", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.jdk_static_text.Wrap( -1 )
 		self.jdk_static_text.Enable( False )
 		
-		fgSizer8.Add( self.jdk_static_text, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		fgSizer8.Add( self.jdk_static_text, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		self.jdk_picker = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DIR_MUST_EXIST|wx.DIRP_SMALL )
 		self.jdk_picker.Enable( False )
@@ -185,30 +184,34 @@ class PublishTool ( wx.Frame ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.Bind( wx.EVT_CLOSE, self.tool_close )
 		self.Bind( wx.EVT_MENU, self.his_select, id = self.menu_item_hist.GetId() )
 		self.Bind( wx.EVT_MENU, self.abt_select, id = self.menu_item_abt.GetId() )
-		self.dir_picker.Bind( wx.EVT_DIRPICKER_CHANGED, self.dir_changed )
+		self.dir_picker.Bind( wx.EVT_DIRPICKER_CHANGED, self.event_dir_changed )
 		self.btn_start.Bind( wx.EVT_BUTTON, self.start )
-		self.jdk_picker.Bind( wx.EVT_DIRPICKER_CHANGED, self.jdk_changed )
+		self.jdk_picker.Bind( wx.EVT_DIRPICKER_CHANGED, self.event_jdk_changed )
 	
 	def __del__( self ):
 		pass
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def tool_close( self, event ):
+		event.Skip()
+	
 	def his_select( self, event ):
 		event.Skip()
 	
 	def abt_select( self, event ):
 		event.Skip()
 	
-	def dir_changed( self, event ):
+	def event_dir_changed( self, event ):
 		event.Skip()
 	
 	def start( self, event ):
 		event.Skip()
 	
-	def jdk_changed( self, event ):
+	def event_jdk_changed( self, event ):
 		event.Skip()
 	
 

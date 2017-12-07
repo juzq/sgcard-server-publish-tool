@@ -6,6 +6,7 @@
 # ------------------------------------------------------------------------------
 
 import subprocess
+import os
 
 server_info = {
     '测试': {
@@ -66,6 +67,13 @@ source_path = '\\src'
 source_list_file = 'sources.list'
 copy_source_path = '\\com\\xd100\\lzll\\db\\sqlmap'
 package_path = tool_path + '\\bin.zip'
+work_path = os.path.expanduser('~') + '\\CL_Srv_Pub_Tool'
+work_config_path = work_path + '\\config'
+work_config_release = 'release'
+work_config_srv_type = 'srv_type'
+work_config_dir_path = 'dir_path'
+work_config_jdk_path = 'jdk_path'
+work_config_upload_csv = 'upload_csv'
 
 
 def check_java(jdk_path):
