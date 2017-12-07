@@ -4,8 +4,12 @@
 
 # 代码结构
 
-+ design
++ design 设计
  - publish_tool.fbp 使用wxFormBuilder制作的界面布局
++ scripts 相关脚本
+ - build.txt 打包命令
+ - stop_srv.sh 停服脚本
+ - start_srv.sh 开服脚本
 + env.py 环境参数
 + publish.py 发布操作
 + sftp.py 上传下载及执行sh命令组件
