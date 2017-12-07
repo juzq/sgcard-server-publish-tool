@@ -78,11 +78,13 @@ work_config_upload_csv = 'upload_csv'
 
 
 def check_java(jdk_path):
+    si = subprocess.STARTUPINFO()
+    si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
     if jdk_path is None:
-        p = subprocess.Popen('java -version', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        cmd = 'java -version'
     else:
-        p = subprocess.Popen('"' + jdk_path + '\\bin\\java" -version', shell=True, stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT)
+        cmd = '"' + jdk_path + '\\bin\\java" -version'
+    p = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, startupinfo=si)
     line = str(p.stdout.readline())
     if 'version' in line:
         return line.replace('b\'java version ', '').replace('\\r\\n\'', '')
