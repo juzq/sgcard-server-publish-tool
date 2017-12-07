@@ -72,6 +72,26 @@ class RunTool(ui.PublishTool):
         self.text_files.SetValue(get_pro_msg(self.dir_picker.GetPath(), path))
 
     def his_select( self, event ):
+        self.text_result.Clear()
+        if os.path.exists(env.work_history_path):
+            file_obj = open(env.work_history_path, 'r', encoding='utf8')
+            history = []
+            try:
+                line = file_obj.readline()
+                while line:
+                    history.append(line)
+                    line = file_obj.readline()
+                if len(history) > 0:
+                    for index in range(len(history)):
+                        self.text_result.AppendText(history.pop())
+                else:
+                    self.text_result.SetValue('没有发布历史')
+            finally:
+                file_obj.close()
+        else:
+            self.text_result.SetValue('没有发布历史')
+
+    def update_select( self, event ):
         webbrowser.open('https://git.ppgame.com/lijixue/sgcard-server-publish-tool/blob/master/CHANGELOG.md', new=0,
                         autoraise=True)
 
@@ -97,8 +117,17 @@ class RunTool(ui.PublishTool):
             return
         # 清空上次启动结果
         self.text_result.Clear()
-        Publish(srv_type, release_name, self.choi_srv.GetCount(), self.dir_picker.GetPath(), self.is_programmer,
+        Publish(srv_type, release_name, self.choi_srv.GetCount(), path, self.is_programmer,
                 self.jdk_picker.GetPath(), self.check_csv.IsChecked())
+        # 保存操作记录
+        if not os.path.exists(env.work_path):
+            os.mkdir(env.work_path)
+        file_obj = open(env.work_history_path, 'a+', encoding= 'utf8')
+        try:
+            file_obj.writelines(time.strftime('%Y-%m-%d %H:%M:%S') + ' ' + release_name + srv_type_cn + '\t' + path +
+                                '\n')
+        finally:
+            file_obj.close()
 
     def tool_close(self, event):
         if self.dir_picker.GetPath() != '':

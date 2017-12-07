@@ -17,15 +17,18 @@ import wx.xrc
 class PublishTool ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙服务器发布工具V1.1", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙服务器发布工具V1.2", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 		
 		self.menu_bar = wx.MenuBar( 0 )
 		self.menu_chio = wx.Menu()
-		self.menu_item_hist = wx.MenuItem( self.menu_chio, wx.ID_ANY, u"更新历史(H)", wx.EmptyString, wx.ITEM_NORMAL )
-		self.menu_chio.AppendItem( self.menu_item_hist )
+		self.menu_item_his = wx.MenuItem( self.menu_chio, wx.ID_ANY, u"发布历史(H)", wx.EmptyString, wx.ITEM_NORMAL )
+		self.menu_chio.AppendItem( self.menu_item_his )
+		
+		self.menu_item_update = wx.MenuItem( self.menu_chio, wx.ID_ANY, u"更新说明(U)", wx.EmptyString, wx.ITEM_NORMAL )
+		self.menu_chio.AppendItem( self.menu_item_update )
 		
 		self.menu_bar.Append( self.menu_chio, u"选项(S)" ) 
 		
@@ -185,7 +188,8 @@ class PublishTool ( wx.Frame ):
 		
 		# Connect Events
 		self.Bind( wx.EVT_CLOSE, self.tool_close )
-		self.Bind( wx.EVT_MENU, self.his_select, id = self.menu_item_hist.GetId() )
+		self.Bind( wx.EVT_MENU, self.his_select, id = self.menu_item_his.GetId() )
+		self.Bind( wx.EVT_MENU, self.update_select, id = self.menu_item_update.GetId() )
 		self.Bind( wx.EVT_MENU, self.abt_select, id = self.menu_item_abt.GetId() )
 		self.dir_picker.Bind( wx.EVT_DIRPICKER_CHANGED, self.event_dir_changed )
 		self.btn_start.Bind( wx.EVT_BUTTON, self.start )
@@ -200,6 +204,9 @@ class PublishTool ( wx.Frame ):
 		event.Skip()
 	
 	def his_select( self, event ):
+		event.Skip()
+	
+	def update_select( self, event ):
 		event.Skip()
 	
 	def abt_select( self, event ):
