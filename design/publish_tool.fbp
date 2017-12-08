@@ -410,7 +410,7 @@
                                         <property name="caption"></property>
                                         <property name="caption_visible">1</property>
                                         <property name="center_pane">0</property>
-                                        <property name="choices">&quot;日文&quot; &quot;韩文&quot; &quot;台湾&quot; &quot;东南亚&quot; &quot;内网&quot; &quot;测试&quot;</property>
+                                        <property name="choices">&quot;日文&quot; &quot;韩文&quot; &quot;台湾&quot; &quot;东南亚&quot; &quot;内网&quot;</property>
                                         <property name="close_button">1</property>
                                         <property name="context_help"></property>
                                         <property name="context_menu">1</property>
