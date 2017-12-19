@@ -64,6 +64,7 @@ remote_root_path = '/home/honor/online/'
 tool_path = '\\tool_build'
 build_path = tool_path + '\\build'
 source_path = '\\src'
+config_path = '\\config'
 source_list_file = 'sources.list'
 copy_source_path = '\\com\\xd100\\lzll\\db\\sqlmap'
 package_path = tool_path + '\\bin.zip'
@@ -77,6 +78,7 @@ work_config_jdk_path = 'jdk_path'
 work_config_upload_csv = 'upload_csv'
 
 
+# 检查jdk路径
 def check_java(jdk_path):
     si = subprocess.STARTUPINFO()
     si.dwFlags |= subprocess.STARTF_USESHOWWINDOW

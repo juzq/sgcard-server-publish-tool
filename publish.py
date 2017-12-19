@@ -105,7 +105,8 @@ def build_code(jdk_path, proj_path):
         time.sleep(1)
     # 新建文件夹
     os.mkdir(full_tool_path)
-    os.mkdir(full_tool_path + '\\build')
+    os.mkdir(proj_path + env.build_path)
+    os.mkdir(proj_path + env.tool_path + env.config_path)
     file_object = open(full_tool_path + '\\' + env.source_list_file, 'w')
     # 添加代码
     add_files(proj_path + env.source_path, file_object)
@@ -116,6 +117,18 @@ def build_code(jdk_path, proj_path):
     # 打包
     wx.CallAfter(pub.sendMessage, "append_text_result", msg='编译完成，正在包起来...\n')
     package(jdk_path, proj_path)
+    # 拷贝config
+    upload_files = {
+        '\\config\\app-bean.xml',
+        '\\config\\app-db.xml',
+        '\\config\\app.xml',
+        '\\config\\app-cfg.xml',
+        '\\config\\logSqlFactory.xml'
+    }
+    for file in upload_files:
+        file_full_path = proj_path + file
+        if os.path.exists(file_full_path):
+            open(full_tool_path + file, "wb").write(open(file_full_path, "rb").read())
 
 
 # 添加源码到编译清单
@@ -176,27 +189,25 @@ def package(jdk_path, proj_path):
 
 
 def upload_code(ip, server_info, dir_path, srv_path, srv_type_str, upload_csv):
-    # 上传bin
-    wx.CallAfter(pub.sendMessage, "append_text_result", msg='正在上传bin.zip\n')
-    sftp.sftp_upload(ip, server_info['port'], server_info['username'], server_info['password'],
-                     dir_path + env.tool_path + '\\bin.zip', srv_path)
-    # 上传app-bean
-    wx.CallAfter(pub.sendMessage, "append_text_result", msg='正在上传app-bean.xml\n')
-    sftp.sftp_upload(ip, server_info['port'], server_info['username'], server_info['password'],
-                     dir_path + '\\config\\app-bean.xml', srv_path + 'config/')
+    upload_files = {
+        'bin.zip': '',
+        'config\\app-bean.xml': 'config/',
+    }
+
     # 游戏服和列表服上传app-db
     if srv_type_str != 'fight':
-        wx.CallAfter(pub.sendMessage, "append_text_result", msg='正在上传app-db.xml\n')
-        sftp.sftp_upload(ip, server_info['port'], server_info['username'], server_info['password'],
-                         dir_path + '\\config\\app-db.xml', srv_path + 'config/')
+        upload_files.update({'config\\app-db.xml': 'config/'})
     # 游戏服
     if srv_type_str == 'game':
-        wx.CallAfter(pub.sendMessage, "append_text_result", msg='正在上传app.xml\n')
+        upload_files.update({'config\\app.xml': 'config/'})
+        upload_files.update({'config\\app-cfg.xml': 'config/'})
+        upload_files.update({'config\\logSqlFactory.xml': 'config/'})
+
+    for file in upload_files.keys():
+        wx.CallAfter(pub.sendMessage, "append_text_result", msg='正在上传' + file + '\n')
         sftp.sftp_upload(ip, server_info['port'], server_info['username'], server_info['password'],
-                         dir_path + '\\config\\app.xml', srv_path + 'config/')
-        wx.CallAfter(pub.sendMessage, "append_text_result", msg='正在上传app-cfg.xml\n')
-        sftp.sftp_upload(ip, server_info['port'], server_info['username'], server_info['password'],
-                         dir_path + '\\config\\app-cfg.xml', srv_path + 'config/')
+                         dir_path + env.tool_path + '\\' + file, srv_path + upload_files[file])
+
     # 上传配置表
     if upload_csv:
         wx.CallAfter(pub.sendMessage, "append_text_result", msg='正在上传配置表...\n')

@@ -75,17 +75,11 @@ class RunTool(ui.PublishTool):
         self.text_result.Clear()
         if os.path.exists(env.work_history_path):
             file_obj = open(env.work_history_path, 'r', encoding='utf8')
-            history = []
             try:
                 line = file_obj.readline()
                 while line:
-                    history.append(line)
+                    self.text_result.AppendText(line)
                     line = file_obj.readline()
-                if len(history) > 0:
-                    for index in range(len(history)):
-                        self.text_result.AppendText(history.pop())
-                else:
-                    self.text_result.SetValue('没有发布历史')
             finally:
                 file_obj.close()
         else:
