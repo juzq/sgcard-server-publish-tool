@@ -9,7 +9,7 @@ import subprocess
 import os
 
 server_info = {
-    '测试': {
+    '李佶学专用': {
         'release_en': 'test',
         'ip': '192.168.60.169',
         'port': 22,
@@ -22,6 +22,14 @@ server_info = {
         'ip': '210.73.210.83',
         'port': 4399,
         'fight_ip': '210.73.210.83',
+        'username': 'honor',
+        'password': 'zK2p@dM$bh'
+    },
+    '日文预发布': {
+        'release_en': 'jpPre',
+        'ip': '140.143.196.183',
+        'port': 4399,
+        'fight_ip': '140.143.196.183',
         'username': 'honor',
         'password': 'zK2p@dM$bh'
     },
@@ -54,6 +62,14 @@ server_info = {
         'ip': '192.168.2.118',
         'port': 22,
         'fight_ip': '192.168.2.118',
+        'username': 'honor',
+        'password': 'zK2p@dM$bh'
+    },
+    '专项测试': {
+        'release_en': 'test',
+        'ip': '192.168.20.246',
+        'port': 22,
+        'fight_ip': '192.168.20.246',
         'username': 'honor',
         'password': 'zK2p@dM$bh'
     }
