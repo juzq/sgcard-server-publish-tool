@@ -15,13 +15,12 @@ def ssh(host, port, username, password, cmd):
     ssh.connect(host, port, username, password)
 
     stdin, stdout, stderr = ssh.exec_command(cmd, get_pty=True)
-    # stdin, stdout, stderr = chan.send(cmd)
     result = stdout.readlines()
     ssh.close()
     return result
 
 
-def download(host,port,username,password,local,remote):
+def download(host,port,username, password,local, remote):
     sf = paramiko.Transport((host, port))
     sf.connect(username = username,password = password)
     sftp = paramiko.SFTPClient.from_transport(sf)

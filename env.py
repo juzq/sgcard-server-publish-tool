@@ -75,6 +75,12 @@ server_info = {
     }
 }
 
+paths = {
+
+}
+
+lock = None
+
 
 remote_root_path = '/home/honor/online/'
 tool_path = '\\tool_build'
@@ -87,11 +93,14 @@ package_path = tool_path + '\\bin.zip'
 work_path = os.path.expanduser('~') + '\\CL_Srv_Pub_Tool'
 work_config_path = work_path + '\\config'
 work_history_path = work_path + '\\history'
+work_lock_path = work_path + '\\lock'
 work_config_release = 'release'
 work_config_srv_type = 'srv_type'
-work_config_dir_path = 'dir_path'
+# work_config_dir_path = 'dir_path'
 work_config_jdk_path = 'jdk_path'
 work_config_upload_csv = 'upload_csv'
+work_config_save_path = 'save_path'
+work_config_paths = 'paths'
 
 
 # 检查jdk路径
@@ -102,7 +111,8 @@ def check_java(jdk_path):
         cmd = 'java -version'
     else:
         cmd = '"' + jdk_path + '\\bin\\java" -version'
-    p = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, startupinfo=si)
+    p = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                         startupinfo=si)
     line = str(p.stdout.readline())
     if 'version' in line:
         return line.replace('b\'java version ', '').replace('\\r\\n\'', '')
