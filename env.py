@@ -19,9 +19,9 @@ server_info = {
     },
     '日文': {
         'release_en': 'jp',
-        'ip': '210.73.210.83',
+        'ip': '118.24.178.15',
         'port': 4399,
-        'fight_ip': '210.73.210.83',
+        'fight_ip': '118.24.178.15',
         'username': 'honor',
         'password': 'zK2p@dM$bh'
     },
@@ -35,9 +35,9 @@ server_info = {
     },
     '韩文': {
         'release_en': 'kr',
-        'ip': '210.73.210.93',
+        'ip': '118.24.177.74',
         'port': 4399,
-        'fight_ip': '210.73.210.94',
+        'fight_ip': '118.24.177.74',
         'username': 'honor',
         'password': 'zK2p@dM$bh'
     },
@@ -58,14 +58,6 @@ server_info = {
         'password': 'zK2p@dM$bh'
     },
     '内网': {
-        'release_en': 'inner',
-        'ip': '192.168.2.118',
-        'port': 22,
-        'fight_ip': '192.168.2.118',
-        'username': 'honor',
-        'password': 'zK2p@dM$bh'
-    },
-    '专项测试': {
         'release_en': 'test',
         'ip': '192.168.20.246',
         'port': 22,

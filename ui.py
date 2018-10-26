@@ -17,7 +17,7 @@ import wx.xrc
 class PublishTool ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙服务器发布工具V1.4", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙服务器发布工具V1.4.1", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -42,7 +42,7 @@ class PublishTool ( wx.Frame ):
 		
 		bSizer2 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_staticText2 = wx.StaticText( self, wx.ID_ANY, u"苍龙服务器发布工具", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText2 = wx.StaticText( self, wx.ID_ANY, u"苍龙测试服发布工具", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText2.Wrap( -1 )
 		self.m_staticText2.SetFont( wx.Font( 15, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
 		
@@ -60,7 +60,7 @@ class PublishTool ( wx.Frame ):
 		self.m_staticText3.Wrap( -1 )
 		fgSizer5.Add( self.m_staticText3, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
-		choi_releaChoices = [ u"日文", u"日文预发布", u"韩文", u"台湾", u"东南亚", u"内网", u"专项测试", u"李佶学专用" ]
+		choi_releaChoices = [ u"日文", u"韩文", u"内网" ]
 		self.choi_relea = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 180,-1 ), choi_releaChoices, 0 )
 		self.choi_relea.SetSelection( 0 )
 		fgSizer5.Add( self.choi_relea, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )

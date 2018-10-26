@@ -47,7 +47,7 @@
             <property name="size">551,417</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSYSTEM_MENU</property>
             <property name="subclass"></property>
-            <property name="title">苍龙服务器发布工具V1.4</property>
+            <property name="title">苍龙服务器发布工具V1.4.1</property>
             <property name="tooltip"></property>
             <property name="window_extra_style"></property>
             <property name="window_name"></property>
@@ -226,7 +226,7 @@
                         <property name="gripper">0</property>
                         <property name="hidden">0</property>
                         <property name="id">wxID_ANY</property>
-                        <property name="label">苍龙服务器发布工具</property>
+                        <property name="label">苍龙测试服发布工具</property>
                         <property name="max_size"></property>
                         <property name="maximize_button">0</property>
                         <property name="maximum_size"></property>
@@ -410,7 +410,7 @@
                                         <property name="caption"></property>
                                         <property name="caption_visible">1</property>
                                         <property name="center_pane">0</property>
-                                        <property name="choices">&quot;日文&quot; &quot;日文预发布&quot; &quot;韩文&quot; &quot;台湾&quot; &quot;东南亚&quot; &quot;内网&quot; &quot;专项测试&quot; &quot;李佶学专用&quot;</property>
+                                        <property name="choices">&quot;日文&quot; &quot;韩文&quot; &quot;内网&quot;</property>
                                         <property name="close_button">1</property>
                                         <property name="context_help"></property>
                                         <property name="context_menu">1</property>
