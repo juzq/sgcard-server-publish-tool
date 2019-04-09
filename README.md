@@ -5,7 +5,7 @@
 ### 界面框架
 选用开源的wxWidgets的Python扩展——wxpython，使用wxFormBuilder编辑工具可以很方便的制作界面布局。
  
- ### 使用的python库
+### 使用的python库
 * wxpython wx框架的python实现，构建图形化界面
 * paramiko 执行远程ssh命令（关服、上传文件、启服）
 * pyinstaller python打包为exe
