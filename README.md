@@ -1,20 +1,20 @@
-# 介绍
-苍龙三国志服务器发布工具是一款带有图形界面的工具软件，旨在提高服务器程序的工作效率，让策划能够很方便地自行更新各版本服务器配置表，后续还会添加服务器代码一键发布等功能。
+### 介绍
+* xx服务器发布工具是一款带有图形界面的工具软件，旨在提高服务器程序的工作效率，让策划能够很方便地自行更新各版本服务器配置表，并已添加服务器代码一键发布等功能。
+* ~~为什么不用jenkins来做持续集成与部署，因为策划和程序有时（经常）不想提交到版本管理系统，但又想发布到服务器上进行测试。~~
 
+### 界面框架
+选用开源的wxWidgets的Python扩展——wxpython，使用wxFormBuilder编辑工具可以很方便的制作界面布局。
+ 
+ ### 使用的python库
+* wxpython wx框架的python实现，构建图形化界面
+* paramiko 执行远程ssh命令（关服、上传文件、启服）
+* pyinstaller python打包为exe
 
-# 代码结构
+### 重要更新
+* 2017/11/20 V0.2 第一版，发布策划配置表
+* 2017/12/06 V1.0 编译java源码、打包、上传服务器
+* 2017/12/07 V1.1 保存上次的选择信息
+* 2018/04/04 V1.4 添加选项可选择是否保存上次选择的信息
+* 2019/04/09 V1.5.0 配合项目Maven改造，使用Maven的方式编译打包
 
-+ design 设计
- - publish_tool.fbp 使用wxFormBuilder制作的界面布局
-+ scripts 相关脚本
- - build.txt 打包命令
- - stop_srv.sh 停服脚本
- - start_srv.sh 开服脚本
-+ env.py 环境参数
-+ publish.py 发布操作
-+ sftp.py 上传下载及执行sh命令组件
-+ tool_start.py 工具启动文件
-+ ui.py 通过wxFormBuilder生成的wxPython界面，请勿直接修改
-
-# 详细说明
-见苍龙智库文章[苍龙服务器发布工具gui版出炉啦](http://192.168.2.118/wordpress/2017/11/15/苍龙服务器发布工具gui版出炉啦/)
+所有版本见：[https://github.com/juzq/sgcard-server-publish-tool/releases]
