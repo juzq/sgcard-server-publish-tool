@@ -59,7 +59,7 @@ work_config_maven_path = 'maven_path'
 work_config_upload_csv = 'upload_csv'
 work_config_save_path = 'save_path'
 work_config_paths = 'paths'
-work_config_log_file = 'build.log'
+work_config_log_file = os.path.expanduser('~') + '\\Desktop\\build.log'
 work_config_user_name = 'user_name'
 
 

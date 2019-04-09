@@ -107,9 +107,11 @@ def build_code(maven_path, proj_path):
     cmd = maven_path + '\\bin\\mvn.bat -f "' + proj_path + '"' + ' package >> ' + env.work_config_log_file
     ps = subprocess.Popen(cmd, startupinfo=si)
     ps.wait()
-    # 打包
-    wx.CallAfter(pub.sendMessage, "append_text_result", msg='编译打包完成，已在本工具目录生成日志:' +
+    wx.CallAfter(pub.sendMessage, "append_text_result", msg='编译打包完成，已生成日志:' +
                                                             env.work_config_log_file + '\n')
+    # maven package失败
+    if ps.returncode != 0:
+        raise Exception('Maven package 执行失败，请查阅日志。')
 
 
 def upload_code(ip, server_info, dir_path, srv_path, srv_type_str, upload_csv):

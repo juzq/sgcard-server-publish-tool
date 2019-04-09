@@ -48,7 +48,7 @@
             <property name="size">551,417</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSYSTEM_MENU</property>
             <property name="subclass"></property>
-            <property name="title">苍龙服务器发布工具V1.5.0</property>
+            <property name="title">苍龙服务器发布工具V1.5.1</property>
             <property name="tooltip"></property>
             <property name="window_extra_style"></property>
             <property name="window_name"></property>
