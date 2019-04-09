@@ -9,7 +9,7 @@ import time
 import webbrowser
 
 import wx
-from wx.lib.pubsub import pub
+from pubsub import pub
 from publish import Publish
 
 import ui
@@ -69,16 +69,20 @@ class RunTool(ui.PublishTool):
             else:
                 file_str += f + ' '
         if self.is_programmer:
+            # 禁用发布
+            wx.CallAfter(pub.sendMessage, "update_btn_start", enable=False)
             # 启用JDK切换
             self.enable_jdk_csv(True)
-            jdk_path = self.jdk_picker.GetPath()
-            if jdk_path != '':
-                file_str = get_pro_msg(path, jdk_path)
+            maven_path = self.maven_picker.GetPath()
+            if maven_path != '':
+                file_str = get_pro_msg(path, maven_path)
             else:
                 file_str = get_pro_msg(path, None)
         else:
             # 禁用JDK切换
             self.enable_jdk_csv(False)
+            # 启用发布按钮
+            wx.CallAfter(pub.sendMessage, "update_btn_start", enable=True)
 
         self.text_files.SetValue(file_str)
         # 保存已选择的发布文件夹
@@ -88,7 +92,7 @@ class RunTool(ui.PublishTool):
 
     def enable_jdk_csv(self, enable):
         self.jdk_static_text.Enable(enable)
-        self.jdk_picker.Enable(enable)
+        self.maven_picker.Enable(enable)
         self.check_csv.Enable(enable)
 
     def event_jdk_changed(self, event):
@@ -96,6 +100,8 @@ class RunTool(ui.PublishTool):
 
     def jdk_changed(self, path):
         self.text_files.Clear()
+        # 禁用发布
+        wx.CallAfter(pub.sendMessage, "update_btn_start", enable=False)
         self.text_files.SetValue(get_pro_msg(self.dir_picker.GetPath(), path))
 
     def his_select(self, event):
@@ -112,12 +118,11 @@ class RunTool(ui.PublishTool):
         else:
             self.text_result.SetValue('没有发布历史')
 
-    def update_select(self, event):
-        webbrowser.open('https://git.ppgame.com/lijixue/sgcard-server-publish-tool/tags', new=0,
-                        autoraise=True)
+    def edit_info_select(self, event):
+        set_info()
 
-    def abt_select(self, event):
-        webbrowser.open('http://192.168.2.118/wordpress/2017/11/15/苍龙服务器发布工具gui版出炉啦', new=0, autoraise=True)
+    def update_select(self, event):
+        webbrowser.open('https://git.ppgame.com/lijixue/sgcard-server-publish-tool/tags', new=0, autoraise=True)
 
     def start(self, event):
         path = self.dir_picker.GetPath()
@@ -127,19 +132,29 @@ class RunTool(ui.PublishTool):
             return
         if not check_dir_empty(path):
             return
+        if env.env_user_name == '':
+            if not set_info():
+                return
         release = self.choi_relea.GetSelection()
         srv_type = self.choi_srv.GetSelection()
         release_name = self.choi_relea.GetString(release)
         srv_type_cn = self.choi_srv.GetString(srv_type)
-        choice = wx.MessageBox('是否确定要发布以下路径到“' + release_name + '版' + srv_type_cn + '”\n' + path, '确认',
-                               wx.YES_NO | wx.ICON_EXCLAMATION)
-        # 选择了取消
-        if choice != wx.YES:
-            return
+        # 策划发布时，直到正确输入版本名称，或者选择取消
+        if not self.is_programmer:
+            answer = ''
+            while answer != release_name:
+                box = wx.TextEntryDialog(None, release_name + srv_type_cn + '\n' + path, '发布确认', '')
+                # 点击了ok
+                if box.ShowModal() == wx.ID_OK:
+                    answer = box.GetValue()
+                    if answer != release_name:
+                        wx.MessageBox('请输入确认要发布的版本：内网/日文/韩文', '错误', wx.ICON_ERROR)
+                else:
+                    return
         # 清空上次启动结果
         self.text_result.Clear()
         Publish(srv_type, release_name, self.choi_srv.GetCount(), path, self.is_programmer,
-                self.jdk_picker.GetPath(), self.check_csv.IsChecked())
+                self.maven_picker.GetPath(), self.check_csv.IsChecked())
         # 保存操作记录
         if not os.path.exists(env.work_path):
             os.mkdir(env.work_path)
@@ -155,11 +170,11 @@ class RunTool(ui.PublishTool):
         try:
             file_obj.writelines(env.work_config_release + '=' + str(self.choi_relea.GetSelection()) + '\n')
             file_obj.writelines(env.work_config_srv_type + '=' + str(self.choi_srv.GetSelection()) + '\n')
-            # file_obj.writelines(env.work_config_dir_path + '=' + self.dir_picker.GetPath() + '\n')
-            file_obj.writelines(env.work_config_jdk_path + '=' + self.jdk_picker.GetPath() + '\n')
+            file_obj.writelines(env.work_config_maven_path + '=' + self.maven_picker.GetPath() + '\n')
             file_obj.writelines(env.work_config_upload_csv + '=' + str(self.check_csv.GetValue()) + '\n')
             file_obj.writelines(env.work_config_save_path + '=' + str(self.check_save_path.GetValue()) + '\n')
             file_obj.writelines(env.work_config_paths + '=' + str(env.paths) + '\n')
+            file_obj.writelines(env.work_config_user_name + '=' + str(env.env_user_name) + '\n')
         finally:
             file_obj.close()
             wx.Exit()
@@ -185,10 +200,10 @@ class RunTool(ui.PublishTool):
                         self.choi_relea.SetSelection(int(values[1]))
                     elif values[0] == env.work_config_srv_type:
                         self.choi_srv.SetSelection(int(values[1]))
-                    elif values[0] == env.work_config_jdk_path:
+                    elif values[0] == env.work_config_maven_path:
                         path = values[1]
                         if path != '' and os.path.exists(path):
-                            self.jdk_picker.SetPath(path)
+                            self.maven_picker.SetPath(path)
                             if self.is_programmer:
                                 self.jdk_changed(path)
                     elif values[0] == env.work_config_upload_csv:
@@ -197,6 +212,8 @@ class RunTool(ui.PublishTool):
                         self.check_save_path.SetValue(values[1] == 'True')
                     elif values[0] == env.work_config_paths:
                         env.paths = eval(values[1])
+                    elif values[0] == env.work_config_user_name:
+                        env.env_user_name = values[1]
                     line = file_obj.readline()
                 # 首次运行初始化保存路径
                 if len(env.paths) == 0:
@@ -207,7 +224,7 @@ class RunTool(ui.PublishTool):
                         env.paths[self.choi_relea.GetString(release)] = paths
                 # 设置当前选择版本和服务器的路径
                 self.on_rel_srv_chosen()
-                # 检查是否有新的版本
+                # 检查是否有新的版本（兼容旧数据）
                 self.check_new_release()
             finally:
                 file_obj.close()
@@ -224,15 +241,23 @@ def check_dir_empty(path):
     return True
 
 
-def get_pro_msg(proj_path, jdk_path):
+def get_pro_msg(proj_path, maven_path):
     msg = '您的身份已识别为：“服务器大佬”\n'
-    jdk_ver = env.check_java(jdk_path)
-    if jdk_ver is not None:
-        msg += '您的JDK版本是：' + jdk_ver + '，请确认\n'
-        msg += '您选择的项目路径：' + proj_path + '\n'
-        msg += '请确认所有文件已保存，确认完毕请点击“开始发布”'
+    # jdk_ver = env.check_java(maven_path)
+    if maven_path is not None:
+        try:
+            msg += env.check_maven(maven_path)
+            # msg += '您的Maven路径是：' + maven_path + '，请确认\n'
+            msg += '您选择的项目路径：' + proj_path + '\n'
+            msg += '请确认所有文件已保存，确认完毕请点击“开始发布”'
+            # 启用发布按钮
+            wx.CallAfter(pub.sendMessage, "update_btn_start", enable=True)
+        except FileNotFoundError:
+            msg += '错误：选择的Maven路径不正确（只支持3.2.5版本）'
+        except Exception as e:
+            msg += e.args[0]
     else:
-        msg += '没有找到您的JDK，请重新选择JDK路径'
+        msg += '提示：请选择Maven路径'
     return msg
 
 
@@ -248,6 +273,17 @@ def check_multi_open():
                 wx.MessageBox('无法开启多个发布工具', '错误', wx.ICON_ERROR)
                 wx.Exit()
     env.lock = os.open(env.work_lock_path, os.O_CREAT | os.O_EXCL | os.O_RDWR)
+
+
+def set_info():
+    box=wx.TextEntryDialog(None, '请输入你的姓名全拼（例如：lijixue）', '信息补充（第一次运行时设置）', env.env_user_name)
+    # 点击了ok
+    if box.ShowModal() == wx.ID_OK:
+        answer = box.GetValue()
+        env.env_user_name = answer
+        return True
+    else:
+        return False
 
 
 if __name__ == "__main__":
