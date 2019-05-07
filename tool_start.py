@@ -242,7 +242,7 @@ def check_dir_empty(path):
 
 
 def get_pro_msg(proj_path, maven_path):
-    msg = '您的身份已识别为：“服务器大佬”\n'
+    msg = '您的身份已识别为：“服务器大佬”'
     # jdk_ver = env.check_java(maven_path)
     if maven_path is not None:
         try:

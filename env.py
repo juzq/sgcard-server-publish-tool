@@ -100,7 +100,7 @@ def check_maven(maven_path):
             maven_ver = line[line.index('Apache Maven') + 13:line.index('(') - 1].replace('b\'', '')
             if maven_ver != '3.2.5':
                 raise Exception("错误：只能选择3.2.5版本的Maven")
-            res += 'Maven版本：' + maven_ver + '\n'
+            res += 'Maven版本：' + maven_ver + ' '
         elif line.find('Java version') >= 0:
             java_ver = line[line.index(':') + 2:line.index(',')].replace('b\'', '')
             if '1.6' not in java_ver:

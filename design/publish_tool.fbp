@@ -48,7 +48,7 @@
             <property name="size">551,417</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSYSTEM_MENU</property>
             <property name="subclass"></property>
-            <property name="title">苍龙服务器发布工具V1.5.1</property>
+            <property name="title">苍龙测试服发布工具V1.5.2</property>
             <property name="tooltip"></property>
             <property name="window_extra_style"></property>
             <property name="window_name"></property>
@@ -291,7 +291,7 @@
                                 </object>
                                 <object class="sizeritem" expanded="0">
                                     <property name="border">5</property>
-                                    <property name="flag">wxALL|wxALIGN_RIGHT</property>
+                                    <property name="flag">wxALIGN_RIGHT|wxTOP|wxBOTTOM|wxRIGHT</property>
                                     <property name="proportion">0</property>
                                     <object class="wxChoice" expanded="0">
                                         <property name="BottomDockable">1</property>
@@ -628,7 +628,7 @@
                                 <property name="pos"></property>
                                 <property name="resize">Resizable</property>
                                 <property name="show">1</property>
-                                <property name="size">450,-1</property>
+                                <property name="size">465,-1</property>
                                 <property name="style">wxDIRP_CHANGE_DIR|wxDIRP_DIR_MUST_EXIST|wxDIRP_SMALL|wxDIRP_USE_TEXTCTRL</property>
                                 <property name="subclass"></property>
                                 <property name="toolbar_pane">0</property>
@@ -646,11 +646,11 @@
                         </object>
                     </object>
                 </object>
-                <object class="sizeritem" expanded="0">
+                <object class="sizeritem" expanded="1">
                     <property name="border">5</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">0</property>
-                    <object class="wxFlexGridSizer" expanded="0">
+                    <object class="wxFlexGridSizer" expanded="1">
                         <property name="cols">2</property>
                         <property name="flexible_direction">wxBOTH</property>
                         <property name="growablecols"></property>
@@ -893,11 +893,11 @@
                                 </object>
                             </object>
                         </object>
-                        <object class="sizeritem" expanded="0">
+                        <object class="sizeritem" expanded="1">
                             <property name="border">5</property>
                             <property name="flag">wxEXPAND|wxALIGN_CENTER_HORIZONTAL</property>
                             <property name="proportion">1</property>
-                            <object class="wxFlexGridSizer" expanded="0">
+                            <object class="wxFlexGridSizer" expanded="1">
                                 <property name="cols">2</property>
                                 <property name="flexible_direction">wxBOTH</property>
                                 <property name="growablecols"></property>
@@ -927,7 +927,7 @@
                                         <property name="vgap">0</property>
                                         <object class="sizeritem" expanded="0">
                                             <property name="border">5</property>
-                                            <property name="flag">wxALL</property>
+                                            <property name="flag">wxTOP|wxRIGHT</property>
                                             <property name="proportion">0</property>
                                             <object class="wxCheckBox" expanded="0">
                                                 <property name="BottomDockable">1</property>
@@ -958,7 +958,7 @@
                                                 <property name="gripper">0</property>
                                                 <property name="hidden">0</property>
                                                 <property name="id">wxID_ANY</property>
-                                                <property name="label">记住文件夹|</property>
+                                                <property name="label">记住文件夹  |</property>
                                                 <property name="max_size"></property>
                                                 <property name="maximize_button">0</property>
                                                 <property name="maximum_size"></property>
@@ -991,7 +991,7 @@
                                         </object>
                                         <object class="sizeritem" expanded="0">
                                             <property name="border">5</property>
-                                            <property name="flag">wxALIGN_CENTER_HORIZONTAL|wxALIGN_BOTTOM|wxTOP|wxBOTTOM|wxLEFT</property>
+                                            <property name="flag">wxALIGN_CENTER_HORIZONTAL|wxALIGN_BOTTOM|wxEXPAND|wxTOP</property>
                                             <property name="proportion">0</property>
                                             <object class="wxCheckBox" expanded="0">
                                                 <property name="BottomDockable">1</property>
@@ -1055,11 +1055,11 @@
                                         </object>
                                     </object>
                                 </object>
-                                <object class="sizeritem" expanded="0">
+                                <object class="sizeritem" expanded="1">
                                     <property name="border">5</property>
                                     <property name="flag">wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL|wxEXPAND</property>
                                     <property name="proportion">1</property>
-                                    <object class="wxFlexGridSizer" expanded="0">
+                                    <object class="wxFlexGridSizer" expanded="1">
                                         <property name="cols">2</property>
                                         <property name="flexible_direction">wxBOTH</property>
                                         <property name="growablecols"></property>
@@ -1073,7 +1073,7 @@
                                         <property name="vgap">0</property>
                                         <object class="sizeritem" expanded="0">
                                             <property name="border">5</property>
-                                            <property name="flag">wxALIGN_CENTER_HORIZONTAL|wxTOP|wxBOTTOM|wxRIGHT|wxALIGN_CENTER_VERTICAL</property>
+                                            <property name="flag">wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxTOP|wxRIGHT</property>
                                             <property name="proportion">0</property>
                                             <object class="wxStaticText" expanded="0">
                                                 <property name="BottomDockable">1</property>
@@ -1103,7 +1103,7 @@
                                                 <property name="gripper">0</property>
                                                 <property name="hidden">0</property>
                                                 <property name="id">wxID_ANY</property>
-                                                <property name="label">|切换Maven</property>
+                                                <property name="label">| 切换Maven</property>
                                                 <property name="markup">0</property>
                                                 <property name="max_size"></property>
                                                 <property name="maximize_button">0</property>
@@ -1134,7 +1134,7 @@
                                         </object>
                                         <object class="sizeritem" expanded="0">
                                             <property name="border">5</property>
-                                            <property name="flag">wxTOP|wxBOTTOM|wxRIGHT</property>
+                                            <property name="flag">wxTOP</property>
                                             <property name="proportion">0</property>
                                             <object class="wxDirPickerCtrl" expanded="0">
                                                 <property name="BottomDockable">1</property>

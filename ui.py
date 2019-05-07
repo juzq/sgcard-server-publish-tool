@@ -17,7 +17,7 @@ import wx.xrc
 class PublishTool ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙服务器发布工具V1.5.1", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"苍龙测试服发布工具V1.5.2", pos = wx.DefaultPosition, size = wx.Size( 551,417 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -65,7 +65,7 @@ class PublishTool ( wx.Frame ):
 		choi_releaChoices = [ u"日文", u"韩文", u"内网" ]
 		self.choi_relea = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 180,-1 ), choi_releaChoices, 0 )
 		self.choi_relea.SetSelection( 0 )
-		fgSizer5.Add( self.choi_relea, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+		fgSizer5.Add( self.choi_relea, 0, wx.ALIGN_RIGHT|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 
 
 		fgSizer4.Add( fgSizer5, 1, wx.EXPAND, 5 )
@@ -99,7 +99,7 @@ class PublishTool ( wx.Frame ):
 
 		fgSizer37.Add( self.m_staticText7, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
-		self.dir_picker = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.Size( 450,-1 ), wx.DIRP_CHANGE_DIR|wx.DIRP_DIR_MUST_EXIST|wx.DIRP_SMALL|wx.DIRP_USE_TEXTCTRL )
+		self.dir_picker = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.Size( 465,-1 ), wx.DIRP_CHANGE_DIR|wx.DIRP_DIR_MUST_EXIST|wx.DIRP_SMALL|wx.DIRP_USE_TEXTCTRL )
 		fgSizer37.Add( self.dir_picker, 0, wx.ALL, 5 )
 
 
@@ -145,13 +145,13 @@ class PublishTool ( wx.Frame ):
 		fgSizer10.SetFlexibleDirection( wx.BOTH )
 		fgSizer10.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
-		self.check_save_path = wx.CheckBox( self, wx.ID_ANY, u"记住文件夹|", wx.DefaultPosition, wx.DefaultSize, 0 )
-		fgSizer10.Add( self.check_save_path, 0, wx.ALL, 5 )
+		self.check_save_path = wx.CheckBox( self, wx.ID_ANY, u"记住文件夹  |", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer10.Add( self.check_save_path, 0, wx.TOP|wx.RIGHT, 5 )
 
 		self.check_csv = wx.CheckBox( self, wx.ID_ANY, u"发布CSV", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.check_csv.Enable( False )
 
-		fgSizer10.Add( self.check_csv, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_BOTTOM|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		fgSizer10.Add( self.check_csv, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_BOTTOM|wx.EXPAND|wx.TOP, 5 )
 
 
 		fgSizer41.Add( fgSizer10, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.TOP, 5 )
@@ -160,17 +160,17 @@ class PublishTool ( wx.Frame ):
 		fgSizer8.SetFlexibleDirection( wx.BOTH )
 		fgSizer8.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
-		self.jdk_static_text = wx.StaticText( self, wx.ID_ANY, u"|切换Maven", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.jdk_static_text = wx.StaticText( self, wx.ID_ANY, u"| 切换Maven", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.jdk_static_text.Wrap( -1 )
 
 		self.jdk_static_text.Enable( False )
 
-		fgSizer8.Add( self.jdk_static_text, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP|wx.BOTTOM|wx.RIGHT|wx.ALIGN_CENTER_VERTICAL, 5 )
+		fgSizer8.Add( self.jdk_static_text, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.RIGHT, 5 )
 
 		self.maven_picker = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DIR_MUST_EXIST|wx.DIRP_SMALL )
 		self.maven_picker.Enable( False )
 
-		fgSizer8.Add( self.maven_picker, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		fgSizer8.Add( self.maven_picker, 0, wx.TOP, 5 )
 
 
 		fgSizer41.Add( fgSizer8, 1, wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )

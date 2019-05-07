@@ -40,8 +40,9 @@ class Publish(Thread):
 
             # 服务器信息
             server_info = env.server_info[self.release_name]
-            # 服务器ID
-            srv_index = 1
+
+            # 服务器ID（20190425因自动化部署，约定list、fight为0，game1为1，game2为2）
+            srv_index = 0
             ip = server_info['ip']
             # 列表服
             if self.srv_type == self.choi_srv_size - 1:
@@ -52,10 +53,9 @@ class Publish(Thread):
             # 游戏服
             else:
                 srv_type_str = 'game'
-                # 服务器ID
+                # 服务器ID，此处限定game必须在下拉列表最前面
                 srv_index = self.srv_type + 1
-            server_id = 'honor_' + srv_type_str + '_mixed_' + server_info['release_en'] + '_' + str(srv_index)
-
+            server_id = 'honor_cs_' + server_info['release_en'] + '.' + str(srv_index) + '.' + srv_type_str + 'Srv.1'
             # 关闭服务器
             wx.CallAfter(pub.sendMessage, "append_text_result", msg='正在关闭服务器，请稍后...\n')
             ssh_res = sftp.ssh(ip, server_info['port'], server_info['username'], server_info['password'],
