@@ -21,14 +21,14 @@ server_info = {
         'ip': '118.24.178.15',
         'port': 4399,
         'username': 'honor',
-        'password': 'zK2p@dM$bh'
+        'password': 'xx'
     },
     '韩文': {
         'release_en': 'kr',
         'ip': '118.24.177.74',
         'port': 4399,
         'username': 'honor',
-        'password': 'zK2p@dM$bh'
+        'password': 'xx'
     },
     '内网': {
         'release_en': 'dev',
@@ -36,7 +36,7 @@ server_info = {
         'port': 22,
         'fight_ip': '192.168.20.246',
         'username': 'honor',
-        'password': 'zK2p@dM$bh'
+        'password': 'xx'
     }
 }
 
