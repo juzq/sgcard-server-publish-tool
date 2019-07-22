@@ -59,7 +59,7 @@ class Publish(Thread):
             # 关闭服务器
             wx.CallAfter(pub.sendMessage, "append_text_result", msg='正在关闭服务器，请稍后...\n')
             ssh_res = sftp.ssh(ip, server_info['port'], server_info['username'], server_info['password'],
-                               env.remote_root_path + 'scripts/stop_srv.sh ' + server_id)
+                               env.remote_root_path + 'scripts/stop_srv.sh ' + server_id + ' ' + env.env_user_name)
             stop_sign = False
             for res in ssh_res:
                 if 'success' in res or 'not open' in res:
